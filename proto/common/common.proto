@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package common.v1;
+option go_package = "github.com/Gambitier/voidkitgo/proto/common";
+
+// Standard error codes for the grpc service
+enum ErrorCode {
+    ERROR_UNSPECIFIED = 0;
+    ERROR_NOT_FOUND = 1;
+    ERROR_PERMISSION_DENIED = 2;
+    ERROR_INVALID_INPUT = 3;
+    ERROR_INTERNAL = 4;
+  }
+  
+  message Error {
+    ErrorCode code = 1;
+    string message = 2;
+  }

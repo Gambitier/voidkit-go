@@ -2,12 +2,12 @@ package server
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"runtime/debug"
 
 	"github.com/Gambitier/voidkitgo/internal/config"
+	httpHandlers "github.com/Gambitier/voidkitgo/internal/server/handlers/http"
 	"github.com/Gambitier/voidkitgo/internal/services"
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
@@ -33,7 +33,6 @@ func NewHTTPServer(params HttpServerParams) *httpServer {
 		router: router,
 		logger: params.Logger,
 	}
-	server.routes()
 	return server
 }
 
@@ -63,19 +62,13 @@ func (s *httpServer) Start(config *config.HTTPConfig) error {
 		IdleTimeout:  config.IdleTimeout,
 	}
 
+	httpHandlers := httpHandlers.NewHttpHandlers(s.server)
+	httpHandlers.RegisterRoutes(s.router)
+
 	return s.server.ListenAndServe()
 }
 
 // Shutdown gracefully shuts down the HTTP server
 func (s *httpServer) Shutdown(ctx context.Context) error {
 	return s.server.Shutdown(ctx)
-}
-
-func (s *httpServer) routes() {
-	// Health check
-	s.router.HandleFunc("/health", s.healthHandler).Methods(http.MethodGet)
-}
-
-func (s *httpServer) healthHandler(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode(map[string]string{"status": "ok"})
 }

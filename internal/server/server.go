@@ -46,9 +46,9 @@ func (s *Server) Start(ctx context.Context) error {
 
 	// Initialize servers
 	s.httpServer = NewHTTPServer(HttpServerParams{
-		Services:  services,
-		Logger:    s.logger,
-		ServerEnv: s.config.Server.Env,
+		services:  services,
+		logger:    s.logger,
+		serverEnv: s.config.Server.Env,
 	})
 	s.grpcServer = NewGrpcServer(GrpcServerParams{
 		Services:  services,

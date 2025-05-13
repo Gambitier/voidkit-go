@@ -21,9 +21,9 @@ type httpServer struct {
 }
 
 type HttpServerParams struct {
-	Services  *services.Services
-	Logger    *logrus.Logger
-	ServerEnv config.Environment
+	services  *services.Services
+	logger    *logrus.Logger
+	serverEnv config.Environment
 }
 
 // NewHTTPServer creates a new HTTP server
@@ -31,7 +31,7 @@ func NewHTTPServer(params HttpServerParams) *httpServer {
 	router := mux.NewRouter()
 	server := &httpServer{
 		router: router,
-		logger: params.Logger,
+		logger: params.logger,
 	}
 	return server
 }

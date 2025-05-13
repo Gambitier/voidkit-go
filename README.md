@@ -66,7 +66,6 @@ voidkit-go/
 ├── cmd/                   # Application entry points
 ├── internal/              # Private application code
 ├── pkg/                   # Public library code
-├── proto/                 # Protocol buffer definitions
 ├── tests/                 # Test files
 ├── docker-compose.dev.yml # Development Docker configuration
 ├── docker.env             # Docker environment variables

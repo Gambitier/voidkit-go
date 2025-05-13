@@ -7,6 +7,7 @@ import (
 	"runtime/debug"
 
 	"github.com/Gambitier/voidkitgo/internal/config"
+	grpcHandlers "github.com/Gambitier/voidkitgo/internal/server/handlers/grpc"
 	"github.com/Gambitier/voidkitgo/internal/services"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
@@ -29,6 +30,7 @@ type grpcServer struct {
 	serverEnv config.Environment
 	port      int
 	logger    *logrus.Logger
+	handlers  *grpcHandlers.GrpcHandlers
 }
 
 type GrpcServerParams struct {
@@ -65,9 +67,12 @@ func panicRecoveryStreamInterceptor(logger *logrus.Logger) grpc.StreamServerInte
 
 // NewGrpcServer creates a new gRPC server
 func NewGrpcServer(params GrpcServerParams) GrpcServer {
+	grpcHandlers := grpcHandlers.NewGrpcHandlers(params.Services)
+
 	return &grpcServer{
 		logger:    params.Logger,
 		serverEnv: params.ServerEnv,
+		handlers:  grpcHandlers,
 	}
 }
 
@@ -83,6 +88,8 @@ func (s *grpcServer) Start(port int) error {
 		grpc.UnaryInterceptor(panicRecoveryUnaryInterceptor(s.logger)),
 		grpc.StreamInterceptor(panicRecoveryStreamInterceptor(s.logger)),
 	)
+
+	s.handlers.RegisterServices(s.server)
 
 	if s.serverEnv.IsDevelopment() {
 		reflection.Register(s.server)

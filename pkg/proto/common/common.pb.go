@@ -129,6 +129,86 @@ func (x *Error) GetMessage() string {
 	return ""
 }
 
+type HealthCheckRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *HealthCheckRequest) Reset() {
+	*x = HealthCheckRequest{}
+	mi := &file_proto_common_common_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HealthCheckRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HealthCheckRequest) ProtoMessage() {}
+
+func (x *HealthCheckRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_common_common_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HealthCheckRequest.ProtoReflect.Descriptor instead.
+func (*HealthCheckRequest) Descriptor() ([]byte, []int) {
+	return file_proto_common_common_proto_rawDescGZIP(), []int{1}
+}
+
+type HealthCheckResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Status        bool                   `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *HealthCheckResponse) Reset() {
+	*x = HealthCheckResponse{}
+	mi := &file_proto_common_common_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HealthCheckResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HealthCheckResponse) ProtoMessage() {}
+
+func (x *HealthCheckResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_common_common_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HealthCheckResponse.ProtoReflect.Descriptor instead.
+func (*HealthCheckResponse) Descriptor() ([]byte, []int) {
+	return file_proto_common_common_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *HealthCheckResponse) GetStatus() bool {
+	if x != nil {
+		return x.Status
+	}
+	return false
+}
+
 var File_proto_common_common_proto protoreflect.FileDescriptor
 
 const file_proto_common_common_proto_rawDesc = "" +
@@ -136,13 +216,18 @@ const file_proto_common_common_proto_rawDesc = "" +
 	"\x19proto/common/common.proto\x12\tcommon.v1\"K\n" +
 	"\x05Error\x12(\n" +
 	"\x04code\x18\x01 \x01(\x0e2\x14.common.v1.ErrorCodeR\x04code\x12\x18\n" +
-	"\amessage\x18\x02 \x01(\tR\amessage*\x81\x01\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\"\x14\n" +
+	"\x12HealthCheckRequest\"-\n" +
+	"\x13HealthCheckResponse\x12\x16\n" +
+	"\x06status\x18\x01 \x01(\bR\x06status*\x81\x01\n" +
 	"\tErrorCode\x12\x15\n" +
 	"\x11ERROR_UNSPECIFIED\x10\x00\x12\x13\n" +
 	"\x0fERROR_NOT_FOUND\x10\x01\x12\x1b\n" +
 	"\x17ERROR_PERMISSION_DENIED\x10\x02\x12\x17\n" +
 	"\x13ERROR_INVALID_INPUT\x10\x03\x12\x12\n" +
-	"\x0eERROR_INTERNAL\x10\x04B-Z+github.com/Gambitier/voidkitgo/proto/commonb\x06proto3"
+	"\x0eERROR_INTERNAL\x10\x042_\n" +
+	"\rCommonService\x12N\n" +
+	"\vHealthCheck\x12\x1d.common.v1.HealthCheckRequest\x1a\x1e.common.v1.HealthCheckResponse\"\x00B-Z+github.com/Gambitier/voidkitgo/proto/commonb\x06proto3"
 
 var (
 	file_proto_common_common_proto_rawDescOnce sync.Once
@@ -157,15 +242,19 @@ func file_proto_common_common_proto_rawDescGZIP() []byte {
 }
 
 var file_proto_common_common_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_proto_common_common_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_proto_common_common_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_proto_common_common_proto_goTypes = []any{
-	(ErrorCode)(0), // 0: common.v1.ErrorCode
-	(*Error)(nil),  // 1: common.v1.Error
+	(ErrorCode)(0),              // 0: common.v1.ErrorCode
+	(*Error)(nil),               // 1: common.v1.Error
+	(*HealthCheckRequest)(nil),  // 2: common.v1.HealthCheckRequest
+	(*HealthCheckResponse)(nil), // 3: common.v1.HealthCheckResponse
 }
 var file_proto_common_common_proto_depIdxs = []int32{
 	0, // 0: common.v1.Error.code:type_name -> common.v1.ErrorCode
-	1, // [1:1] is the sub-list for method output_type
-	1, // [1:1] is the sub-list for method input_type
+	2, // 1: common.v1.CommonService.HealthCheck:input_type -> common.v1.HealthCheckRequest
+	3, // 2: common.v1.CommonService.HealthCheck:output_type -> common.v1.HealthCheckResponse
+	2, // [2:3] is the sub-list for method output_type
+	1, // [1:2] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
 	1, // [1:1] is the sub-list for extension extendee
 	0, // [0:1] is the sub-list for field type_name
@@ -182,9 +271,9 @@ func file_proto_common_common_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_common_common_proto_rawDesc), len(file_proto_common_common_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   1,
+			NumMessages:   3,
 			NumExtensions: 0,
-			NumServices:   0,
+			NumServices:   1,
 		},
 		GoTypes:           file_proto_common_common_proto_goTypes,
 		DependencyIndexes: file_proto_common_common_proto_depIdxs,
